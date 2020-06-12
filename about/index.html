@@ -55,7 +55,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>EvanChen</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -96,18 +96,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -139,7 +127,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/default.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -266,17 +254,16 @@
 
   <footer class="mt-5">
   <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
+ 
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">京ICP备18027511号-2</a>
+    
+  </div>
 
-    
-
-    
+ 
   </div>
 </footer>
 
@@ -331,6 +318,8 @@
     anchors.options = {
       placement: "right",
       visible: "hover",
+      
+      icon: "§"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");
