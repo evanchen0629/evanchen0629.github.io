@@ -118,6 +118,25 @@
   
   
   <entry>
+    <title>关于js中改变this指向问题</title>
+    <link href="/2019-1-29-%E5%85%B3%E4%BA%8Ejs%E4%B8%AD%E6%94%B9%E5%8F%98this%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/"/>
+    <url>/2019-1-29-%E5%85%B3%E4%BA%8Ejs%E4%B8%AD%E6%94%B9%E5%8F%98this%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-改变this指向三种方法"><a href="#1-改变this指向三种方法" class="headerlink" title="1.改变this指向三种方法"></a>1.改变this指向三种方法</h2><h5 id="1-call"><a href="#1-call" class="headerlink" title="1.call"></a>1.call</h5><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = &#123;  name: <span class="hljs-string">'evan'</span>,  age: <span class="hljs-number">18</span>&#125;<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name,<span class="hljs-keyword">this</span>.age, a, b);&#125;fn.call(obj, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</code></pre><p>调用fn并使用obj中的this</p><h5 id="2-apply"><a href="#2-apply" class="headerlink" title="2.apply"></a>2.apply</h5><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = &#123;  name: <span class="hljs-string">'evan'</span>,  age: <span class="hljs-number">18</span>&#125;<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name,<span class="hljs-keyword">this</span>.age, a, b);&#125;fn.apply(obj, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>])</code></pre><p>调用fn并使用obj中的this</p><h6 id="两者的不同在于参数数组的区别-如果参数复杂就用call-如何不复杂就用apply-视情况而定"><a href="#两者的不同在于参数数组的区别-如果参数复杂就用call-如何不复杂就用apply-视情况而定" class="headerlink" title="两者的不同在于参数数组的区别,如果参数复杂就用call,如何不复杂就用apply,视情况而定"></a>两者的不同在于参数数组的区别,如果参数复杂就用call,如何不复杂就用apply,视情况而定</h6><h5 id="3-bind"><a href="#3-bind" class="headerlink" title="3.bind"></a>3.bind</h5><p>bind和其他两者的区别是返回的是一个改变this指向的函数,而不是直接调用(call和apply返回的是undefined)</p><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = &#123;  name: <span class="hljs-string">'evan'</span>,  age: <span class="hljs-number">18</span>&#125;<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name,<span class="hljs-keyword">this</span>.age, a, b);&#125;<span class="hljs-keyword">const</span> a = fn.bind(obj, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)a()</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CommonJS、AMD、CMD、ES6 模块规范讲解</title>
     <link href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/"/>
     <url>/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/</url>
