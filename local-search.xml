@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>搬砖中所遇到的问题</title>
+    <link href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <url>/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-typescript-eslint-no-unused-vars"><a href="#1-typescript-eslint-no-unused-vars" class="headerlink" title="1.@typescript-eslint/no-unused-vars"></a>1.@typescript-eslint/no-unused-vars</h2><p>当没有使用变量的时候,eslint会报一个这个错,聪明的你肯定想到,我没用到我删了不就行了嘛😑</p><pre><code class="hljs ts"><span class="hljs-keyword">const</span> handleChange = React.useCallback(    (      currentPagination: <span class="hljs-built_in">any</span>,      filteredInfo: &#123; [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>[] &#125;,      currentSortInfo: ITableSortInfo,      params?: <span class="hljs-built_in">any</span>    ) =&gt; &#123;    [_setPagination, pagination, sortInfo]  );</code></pre><p>当我定义一个函数的时候,我不确定外面给不给我传这个参数,当然已经是个很老的项目了,如果删掉的话,会出现很多问题,还有改当前已有的项目所使用的地方.</p><ul><li><p>解决办法</p><p>在参数名前面加上一个_,就可以解决eslint报的错了</p></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Problem</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TypeScript如何在 React 中完美运用？</title>
     <link href="/2020-5-29-TypeScript%E5%A6%82%E4%BD%95%E5%9C%A8-React-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E8%BF%90%E7%94%A8%EF%BC%9F/"/>
     <url>/2020-5-29-TypeScript%E5%A6%82%E4%BD%95%E5%9C%A8-React-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E8%BF%90%E7%94%A8%EF%BC%9F/</url>
