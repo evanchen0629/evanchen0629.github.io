@@ -17,7 +17,7 @@
   <meta name="description" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
   <meta name="author" content="EvanChen">
   <meta name="keywords" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
-  <title>标签 - EvanChen</title>
+  <title>归档 - EvanChen</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -135,9 +135,34 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/GO/" style="font-size: 15px; color: #bbe">GO</a> <a href="/tags/Problem/" style="font-size: 15px; color: #bbe">Problem</a> <a href="/tags/TypeScript/" style="font-size: 22.5px; color: #779bd3">TypeScript</a> <a href="/tags/react/" style="font-size: 30px; color: #337ab7">react</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 30px; color: #337ab7">前端</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 15px; color: #bbe">模块</a>
+<div class="list-group">
+  <p class="h4">共计 11 篇文章</p>
+  <hr>
+  
+    
+      
+      <p class="h5">2019</p>
+    
+    <a href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">CommonJS、AMD、CMD、ES6 模块规范讲解</span>
+      <span style="float: right;">01-24</span>
+    </a>
+  
 </div>
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/archives/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
 
               </div>
             </div>
@@ -227,7 +252,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签&nbsp;",
+        "归档&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

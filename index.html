@@ -144,6 +144,54 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1giurswddozj30k20axtbq.jpg" srcset="/img/loading.gif" alt="hooks分享">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/">hooks分享</a>
+
+      <a href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/" class="index-excerpt">
+        
+        
+          
+        
+        <div>为什么会出现hooks,如何使用hooks?
+我们现在的局面是这样的：
+
+React很受欢迎。
+React组件使用类创建，因为这是当时最有意义的方式。
+使用super(props)是很烦人的。
+没人知道“this”是怎么回事。
+好了冷静点。我假设你知道“this”是怎么回事，但这对某些人来说是不必要的障碍。
+通过生命周期方法组织组件，迫使我们将相关的逻辑分散到组件中。
+React对于共享非可视逻辑</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-08
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">react</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021-02-21-react%E6%A0%B9%E6%8D%AE%E7%8E%AF%E5%A2%83%E6%9B%B4%E6%94%B9title/" target="_self">
           <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1giurswddozj30k20axtbq.jpg" srcset="/img/loading.gif" alt="react根据环境更改title">
         </a>
@@ -537,57 +585,19 @@ fn.call(obj, 1, 2)
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/" target="_self">
-          <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gmz1erhklqj31060j0wqs.jpg" srcset="/img/loading.gif" alt="CommonJS、AMD、CMD、ES6 模块规范讲解">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/">CommonJS、AMD、CMD、ES6 模块规范讲解</a>
-
-      <a href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/" class="index-excerpt">
-        
-        
-          
-        
-        <div>模块化原始写法在没有CommonJS和ES6的时候，我们想要达到模块化的效果可能有这么三种：
-1. 一个函数就是一个模块&lt;script&gt;  
-  function m1 () &#123;  
-    // ...  
-  &#125;  
-  function m2 () &#123;  
-    // ...  
-  &#125;  
-&lt;/script&gt;
 
 
-缺点：污染</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2019-01-24
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%A8%A1%E5%9D%97/">模块</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

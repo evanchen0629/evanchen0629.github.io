@@ -17,7 +17,7 @@
   <meta name="description" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
   <meta name="author" content="EvanChen">
   <meta name="keywords" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
-  <title>标签 - EvanChen</title>
+  <title>EvanChen</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -119,6 +119,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -128,16 +132,79 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/GO/" style="font-size: 15px; color: #bbe">GO</a> <a href="/tags/Problem/" style="font-size: 15px; color: #bbe">Problem</a> <a href="/tags/TypeScript/" style="font-size: 22.5px; color: #779bd3">TypeScript</a> <a href="/tags/react/" style="font-size: 30px; color: #337ab7">react</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 30px; color: #337ab7">前端</a> <a href="/tags/%E6%A8%A1%E5%9D%97/" style="font-size: 15px; color: #bbe">模块</a>
-</div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gmz1erhklqj31060j0wqs.jpg" srcset="/img/loading.gif" alt="CommonJS、AMD、CMD、ES6 模块规范讲解">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/">CommonJS、AMD、CMD、ES6 模块规范讲解</a>
+
+      <a href="/2019-1-24-CommonJS%E3%80%81AMD%E3%80%81CMD%E3%80%81ES6-%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E8%AE%B2%E8%A7%A3/" class="index-excerpt">
+        
+        
+          
+        
+        <div>模块化原始写法在没有CommonJS和ES6的时候，我们想要达到模块化的效果可能有这么三种：
+1. 一个函数就是一个模块&lt;script&gt;  
+  function m1 () &#123;  
+    // ...  
+  &#125;  
+  function m2 () &#123;  
+    // ...  
+  &#125;  
+&lt;/script&gt;
+
+
+缺点：污染</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2019-01-24
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%A8%A1%E5%9D%97/">模块</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
 
               </div>
             </div>
@@ -227,7 +294,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签&nbsp;",
+        "不能忍辱,怎能负重&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
