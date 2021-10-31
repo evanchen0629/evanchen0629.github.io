@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <meta name="author" content="EvanChen">
+  <meta name="keywords" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <title>async和await的演变过程 - EvanChen</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>EvanChen</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-02-01 18:27">
+      2021年2月1日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      917 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>在工作大家经常使用async和await,例如模拟个异步,a里面存着b的路径,b存着c的路径,我想要得到c里面的内容,就必须一层层读,如何让大家写肯定会想到async和await的,那他又是怎么来的呢?</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn832pihekj306001zwea.jpg" srcset="/img/loading.gif" alt="image-20210201155107986"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readSync</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">let</span> value1 = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'./a.txt'</span>, <span class="hljs-string">'utf-8'</span>)
+  <span class="hljs-keyword">let</span> value2 = <span class="hljs-keyword">await</span> readFile(value1, <span class="hljs-string">'utf-8'</span>);
+  <span class="hljs-keyword">let</span> value3 = <span class="hljs-keyword">await</span> readFile(value2, <span class="hljs-string">'utf-8'</span>);
+&#125;</code></pre>
+
+<h2 id="1-迭代器"><a href="#1-迭代器" class="headerlink" title="1.迭代器"></a>1.迭代器</h2><p>首先讲一下es6非常关键的东西迭代器,简单的说可以用for of语句执行的就是可迭代对象,可迭代对象中都实现了迭代器,例如数组,Map,字符串NodeList……</p>
+<p>在简单点说可以看原型链上有没有这个属性</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn837tm9aij30u00vq7aw.jpg" srcset="/img/loading.gif" alt="image-20210201155604914"></p>
+<p>那这个时候我们用for of就可以打印迭代他</p>
+<p><strong>这里要注意迭代,遍历和循环的区别</strong></p>
+<ul>
+<li><p>循环（loop），指的是在满足条件的情况下，重复执行同一段代码。比如，while语句。</p>
+</li>
+<li><p>迭代（iterate），指的是按照某种顺序逐个访问列表中的每一项。比如，for语句。</p>
+</li>
+<li><p>遍历（traversal），指的是按照一定的规则访问树形结构中的每个节点，而且每个节点都只访问一次。</p>
+</li>
+</ul>
+<h2 id="2-生成器"><a href="#2-生成器" class="headerlink" title="2.生成器"></a>2.生成器</h2><p>生成器其实就是生成迭代器的</p>
+<p>语法</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">name</span>(<span class="hljs-params"></span>)</span>&#123;
+		<span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>
+&#125;</code></pre>
+
+<p>和return的区别是,return在函数中只有一个,而yield可以有多个,return直接终止函数了,而yield可以理解为暂停函数</p>
+<p>使用</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generate</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> value = <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'value: '</span>, value);
+  <span class="hljs-keyword">yield</span> value
+  <span class="hljs-keyword">yield</span> <span class="hljs-number">3</span>
+&#125;
+<span class="hljs-keyword">const</span> iter = generate()
+<span class="hljs-built_in">console</span>.log(iter.next());
+<span class="hljs-built_in">console</span>.log(iter.next(<span class="hljs-number">2</span>));
+<span class="hljs-built_in">console</span>.log(iter.next());</code></pre>
+
+<p>1.首先创建一个生成器对象</p>
+<p>2.通过生成器对象调用next方法来执行函数,到第一个yield结束,多次调用next可以多次执行</p>
+<p>3.next可以传递参数,传递的参数可以通过yield的返回值接收,第一次传值是接收不到的,而是第二个传递才能接收到例如:</p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn83ndt6xaj30oo0d4mz0.jpg" srcset="/img/loading.gif" alt="image-20210201161101960"></p>
+<p>普及了这些就可以实现async和await了</p>
+<h2 id="3-通过例子来实现async和await"><a href="#3-通过例子来实现async和await" class="headerlink" title="3.通过例子来实现async和await"></a>3.通过例子来实现async和await</h2><p>我们先通过promise解决回调地狱的问题</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+<span class="hljs-keyword">const</span> readSync = <span class="hljs-function">(<span class="hljs-params">pathName</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve,reject</span>) =&gt;</span> &#123;
+    fs.readFile(pathName, <span class="hljs-string">'utf-8'</span>, (err, data) =&gt; &#123;
+      <span class="hljs-keyword">if</span> (err) &#123;
+        reject(err)
+      &#125;
+      resolve(data)
+    &#125;)
+  &#125;)
+&#125;
+
+<span class="hljs-keyword">const</span> p1 = readSync(<span class="hljs-string">'./a.txt'</span>)
+p1.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> readSync(res)
+&#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> readSync(res)
+&#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">// 会打印c.txt中的内容</span>
+&#125;)</code></pre>
+
+<p>这时候我们可以创建一个生成器去读取文件,在创建一个执行器去执行生成器</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">readFile</span>(<span class="hljs-params"></span>)</span>&#123;
+  <span class="hljs-keyword">const</span> res1 = <span class="hljs-keyword">yield</span> readSync(<span class="hljs-string">'./a.txt'</span>)
+  <span class="hljs-keyword">const</span> res2 = <span class="hljs-keyword">yield</span> readSync(res1)
+  <span class="hljs-keyword">const</span> res3 = <span class="hljs-keyword">yield</span> readSync(res2)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'res3: '</span>, res3);
+&#125;
+
+<span class="hljs-keyword">const</span> iter = readFile()
+<span class="hljs-keyword">const</span> &#123;value, done&#125; = iter.next();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done: '</span>, done);
+value.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">const</span> &#123;value, done&#125; = iter.next(res);
+  value.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> &#123;value, done&#125; =iter.next(res);
+    value.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+      <span class="hljs-keyword">const</span> &#123;value, done&#125; = iter.next(res)
+    &#125;)
+  &#125;)
+&#125;)</code></pre>
+
+<p>这样这个readFile函数就会打印c.txt中的内容了,是不是感觉每次写生成器很不爽,我们借鉴TJ大神写的生成器,简单封装一个通用的生成器代码</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Co</span>(<span class="hljs-params">iter</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">let</span> next = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;
+      <span class="hljs-keyword">let</span> &#123; value, done &#125; = iter.next(data);
+      <span class="hljs-keyword">if</span> (done) &#123;
+        resolve(data);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        value.then(<span class="hljs-function"><span class="hljs-params">val</span> =&gt;</span> &#123;
+          next(val)
+        &#125;, reject)
+      &#125;
+    &#125;
+    next();
+  &#125;)
+&#125;
+Co(iter)</code></pre>
+
+<p>这样就ok了,然后咱们看这段代码,对比一下,大家是不是就知道async和await的由来了 😁</p>
+<pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readSync</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">let</span> value1 = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'./a.txt'</span>, <span class="hljs-string">'utf-8'</span>)
+  <span class="hljs-keyword">let</span> value2 = <span class="hljs-keyword">await</span> readFile(value1, <span class="hljs-string">'utf-8'</span>);
+  <span class="hljs-keyword">let</span> value3 = <span class="hljs-keyword">await</span> readFile(value2, <span class="hljs-string">'utf-8'</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">readFile</span>(<span class="hljs-params"></span>)</span>&#123;
+  <span class="hljs-keyword">const</span> res1 = <span class="hljs-keyword">yield</span> readSync(<span class="hljs-string">'./a.txt'</span>)
+  <span class="hljs-keyword">const</span> res2 = <span class="hljs-keyword">yield</span> readSync(res1)
+  <span class="hljs-keyword">const</span> res3 = <span class="hljs-keyword">yield</span> readSync(res2)
+&#125;</code></pre>
+
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021-02-21-react%E6%A0%B9%E6%8D%AE%E7%8E%AF%E5%A2%83%E6%9B%B4%E6%94%B9title/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">react根据环境更改title</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">搬砖中所遇到的问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    
+ 
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">京ICP备18027511号-2</a>
+    
+  </div>
+
+ 
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "async和await的演变过程&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "§"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

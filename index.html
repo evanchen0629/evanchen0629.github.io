@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <meta name="author" content="EvanChen">
+  <meta name="keywords" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <title>EvanChen</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>EvanChen</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-10-31-%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91,hexo%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/008i3skNgy1gvykrkydy4j30ze0lotas.jpg" srcset="/img/loading.gif" alt="更换电脑,hexo不能正常使用">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-10-31-%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91,hexo%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E4%BD%BF%E7%94%A8/">更换电脑,hexo不能正常使用</a>
+
+      <a href="/2021-10-31-%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91,hexo%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="index-excerpt">
+        
+        
+          
+        
+        <div>更换电脑,hexo不能正常使用新出的M1pro芯片肯定是吸引我的(真的香),果断换了,当弄到hexo发布博客的时间出现了权限不足的问题,我果断sudo执行命令,可是还是不行,老的Mac是可以的….三个小时后找到了解决办法!!!
+首先先sudo执行hexo g的命令,如果报错讲根目录下的.deploy_git删除掉,继续hexo g就ok了
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-10-31
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/hexo/">hexo</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1giurswddozj30k20axtbq.jpg" srcset="/img/loading.gif" alt="hooks分享">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/">hooks分享</a>
+
+      <a href="/2021-05-08-hooks%E5%88%86%E4%BA%AB/" class="index-excerpt">
+        
+        
+          
+        
+        <div>为什么会出现hooks,如何使用hooks?
+我们现在的局面是这样的：
+
+React很受欢迎。
+React组件使用类创建，因为这是当时最有意义的方式。
+使用super(props)是很烦人的。
+没人知道“this”是怎么回事。
+好了冷静点。我假设你知道“this”是怎么回事，但这对某些人来说是不必要的障碍。
+通过生命周期方法组织组件，迫使我们将相关的逻辑分散到组件中。
+React对于共享非可视逻辑</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-05-08
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">react</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-02-21-react%E6%A0%B9%E6%8D%AE%E7%8E%AF%E5%A2%83%E6%9B%B4%E6%94%B9title/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1giurswddozj30k20axtbq.jpg" srcset="/img/loading.gif" alt="react根据环境更改title">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-02-21-react%E6%A0%B9%E6%8D%AE%E7%8E%AF%E5%A2%83%E6%9B%B4%E6%94%B9title/">react根据环境更改title</a>
+
+      <a href="/2021-02-21-react%E6%A0%B9%E6%8D%AE%E7%8E%AF%E5%A2%83%E6%9B%B4%E6%94%B9title/" class="index-excerpt">
+        
+        
+          
+        
+        <div>react根据环境更改title通过create react app 创建的项目可以直接更改public中的index.html中的title替换成&lt;%= htmlWebpackPlugin.options.title %&gt;
+
+接下来在config下的webpack.config.js中该更如下代码
+new HtmlWebpackPlugin(
+  Object.assign(
+   </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-02-21
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">react</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-2-1-async%E5%92%8Cawait%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn4res0b66j31o50u04qp.jpg" srcset="/img/loading.gif" alt="async和await的演变过程">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-2-1-async%E5%92%8Cawait%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/">async和await的演变过程</a>
+
+      <a href="/2021-2-1-async%E5%92%8Cawait%E7%9A%84%E6%BC%94%E5%8F%98%E8%BF%87%E7%A8%8B/" class="index-excerpt">
+        
+        
+          
+        
+        <div>简介在工作大家经常使用async和await,例如模拟个异步,a里面存着b的路径,b存着c的路径,我想要得到c里面的内容,就必须一层层读,如何让大家写肯定会想到async和await的,那他又是怎么来的呢?
+
+async function readSync() &#123;
+  let value1 = await readFile('./a.txt', 'utf-8')
+  let value2</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-02-01
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn4i64au9fj30ii0cgq5b.jpg" srcset="/img/loading.gif" alt="搬砖中所遇到的问题">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">搬砖中所遇到的问题</a>
+
+      <a href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="index-excerpt">
+        
+        
+          
+        
+        <div>1.@typescript-eslint/no-unused-vars当没有使用变量的时候,eslint会报一个这个错,聪明的你肯定想到,我没用到我删了不就行了嘛😑
+const handleChange = React.useCallback(
+    (
+      currentPagination: any,
+      filteredInfo: &#123; [key: string]</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-01-29
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Problem/">Problem</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020-5-29-TypeScript%E5%A6%82%E4%BD%95%E5%9C%A8-React-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E8%BF%90%E7%94%A8%EF%BC%9F/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gidhusnsjyj30ho0aqjtq.jpg" srcset="/img/loading.gif" alt="TypeScript如何在 React 中完美运用？">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2020-5-29-TypeScript%E5%A6%82%E4%BD%95%E5%9C%A8-React-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E8%BF%90%E7%94%A8%EF%BC%9F/">TypeScript如何在 React 中完美运用？</a>
+
+      <a href="/2020-5-29-TypeScript%E5%A6%82%E4%BD%95%E5%9C%A8-React-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E8%BF%90%E7%94%A8%EF%BC%9F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>组件 Props先看几种定义 Props 经常用到的类型：
+基础类型type BasicProps = &#123;
+  message: string;
+  count: number;
+  disabled: boolean;
+  /** 数组类型 */
+  names: string[];
+  /** 用「联合类型」限制为下面两种「字符串字面量」类型 */
+  status: "waitin</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-29
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/TypeScript/">TypeScript</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019-09-18-%E4%BB%8Ereact-hooks%E2%80%9C%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1%E2%80%9D%E5%88%87%E5%85%A5%EF%BC%8C%E6%B5%85%E8%B0%88react-hooks/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1giurswddozj30k20axtbq.jpg" srcset="/img/loading.gif" alt="从react hooks“闭包陷阱”切入，浅谈react hooks">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019-09-18-%E4%BB%8Ereact-hooks%E2%80%9C%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1%E2%80%9D%E5%88%87%E5%85%A5%EF%BC%8C%E6%B5%85%E8%B0%88react-hooks/">从react hooks“闭包陷阱”切入，浅谈react hooks</a>
+
+      <a href="/2019-09-18-%E4%BB%8Ereact-hooks%E2%80%9C%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1%E2%80%9D%E5%88%87%E5%85%A5%EF%BC%8C%E6%B5%85%E8%B0%88react-hooks/" class="index-excerpt">
+        
+        
+          
+        
+        <div>从react hooks“闭包陷阱”切入，浅谈react hooks首先，本文并不会讲解 hooks 的基本用法， 本文从 一个hooks中 “奇怪”（其实符合逻辑） 的 “闭包陷阱” 的场景切入，试图讲清楚其背后的因果。同时，在许多 react hooks 奇技淫巧的文章里，也能看到 useRef 的身影，那么为什么使用 useRef 又能摆脱 这个 “闭包陷阱” ？ 我想搞清楚这些问题，将能较</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2019-09-18
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">react</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019-09-03-TypeScript%E4%B8%AD%E7%9A%84type%E5%92%8Cinterface%E5%8C%BA%E5%88%AB/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gidhusnsjyj30ho0aqjtq.jpg" srcset="/img/loading.gif" alt="TypeScript中的type和interface区别">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019-09-03-TypeScript%E4%B8%AD%E7%9A%84type%E5%92%8Cinterface%E5%8C%BA%E5%88%AB/">TypeScript中的type和interface区别</a>
+
+      <a href="/2019-09-03-TypeScript%E4%B8%AD%E7%9A%84type%E5%92%8Cinterface%E5%8C%BA%E5%88%AB/" class="index-excerpt">
+        
+        
+          
+        
+        <div>接口VS类型大家使用typescript总会使用到接口和类型，官方规范稍微说了下两者的区别
+
+
+可以在extend或Implements子句中命名接口，但是不能为对象类型文字提供类型别名。
+一个接口可以具有多个合并的声明，但是对象类型文字的类型别名不能。
+
+
+明人不说暗话，直接上区别。
+相同点都可以描述一个对象或函数接口interface User &#123;
+  name: string
+  </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2019-09-03
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/TypeScript/">TypeScript</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019-08-07-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghib4lqi9vj30mr0a7jsp.jpg" srcset="/img/loading.gif" alt="Go语言基础之变量和常量">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019-08-07-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/">Go语言基础之变量和常量</a>
+
+      <a href="/2019-08-07-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>标识符与关键字标识符在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和_(下划线）组成，并且只能以字母和_开头。 举几个例子：abc, _, _123, a123。
+
+关键字关键字是指编程语言中预先定义好的具有特殊含义的标识符。 关键字和保留字都不建议用作变量名。
+Go语言中有25个关键字：
+break        default </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2019-08-07
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/GO/">GO</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019-07-13-%E8%B7%A8%E5%9F%9F%E9%82%A3%E7%82%B9%E4%BA%8B/" target="_self">
+          <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggpfb1872yj30is0b3n0y.jpg" srcset="/img/loading.gif" alt="跨域那点事">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019-07-13-%E8%B7%A8%E5%9F%9F%E9%82%A3%E7%82%B9%E4%BA%8B/">跨域那点事</a>
+
+      <a href="/2019-07-13-%E8%B7%A8%E5%9F%9F%E9%82%A3%E7%82%B9%E4%BA%8B/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言相信每个前端对于跨域这两个字都不会陌生，在实际项目中应用也很多，但跨域方法的多种多样让人目不暇接，前段时间公司同事出现了跨域问题，又一时找不到问题所在，所以在此总结下跨域知识，一篇由浅入深的万字Web基操文
+其实很早就开始写了，只不过刚开始写的时候理解不够深刻，后来慢慢就写其他觉得较高大尚较内涵的了，然后就又是觉得不够完美不够深刻又写一半，就此陷入强迫症患者明知不可为而为的死循环，SO，产出少</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2019-07-13
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    
+ 
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">京ICP备18027511号-2</a>
+    
+  </div>
+
+ 
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "不能忍辱,怎能负重&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

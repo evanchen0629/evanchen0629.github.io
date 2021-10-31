@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <meta name="author" content="EvanChen">
+  <meta name="keywords" content="陈丞佐的个人博客 EvanChen的个人博客 前端 技术">
+  <title>TypeScript如何在 React 中完美运用？ - EvanChen</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>EvanChen</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-05-29 18:27">
+      2020年5月29日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="组件-Props"><a href="#组件-Props" class="headerlink" title="组件 Props"></a>组件 Props</h2><p>先看几种定义 Props 经常用到的类型：</p>
+<h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><pre><code class="hljs ts"><span class="hljs-keyword">type</span> BasicProps = &#123;
+  message: <span class="hljs-built_in">string</span>;
+  count: <span class="hljs-built_in">number</span>;
+  disabled: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-comment">/** 数组类型 */</span>
+  names: <span class="hljs-built_in">string</span>[];
+  <span class="hljs-comment">/** 用「联合类型」限制为下面两种「字符串字面量」类型 */</span>
+  status: <span class="hljs-string">"waiting"</span> | <span class="hljs-string">"success"</span>;
+&#125;;</code></pre>
+
+<h3 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h3><pre><code class="hljs ts"><span class="hljs-keyword">type</span> ObjectOrArrayProps = &#123;
+  <span class="hljs-comment">/** 如果你不需要用到具体的属性 可以这样模糊规定是个对象 ❌ 不推荐 */</span>
+  obj: object;
+  obj2: &#123;&#125;; <span class="hljs-comment">// 同上</span>
+  <span class="hljs-comment">/** 拥有具体属性的对象类型 ✅ 推荐 */</span>
+  obj3: &#123;
+    id: <span class="hljs-built_in">string</span>;
+    title: <span class="hljs-built_in">string</span>;
+  &#125;;
+  <span class="hljs-comment">/** 对象数组 😁 常用 */</span>
+  objArr: &#123;
+    id: <span class="hljs-built_in">string</span>;
+    title: <span class="hljs-built_in">string</span>;
+  &#125;[];
+  <span class="hljs-comment">/** key 可以为任意 string，值限制为 MyTypeHere 类型 */</span>
+  dict1: &#123;
+    [key: <span class="hljs-built_in">string</span>]: MyTypeHere;
+  &#125;;
+  dict2: Record&lt;<span class="hljs-built_in">string</span>, MyTypeHere&gt;; <span class="hljs-comment">// 基本上和 dict1 相同，用了 TS 内置的 Record 类型。</span>
+&#125;</code></pre>
+
+<h3 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h3><pre><code class="hljs ts"><span class="hljs-keyword">type</span> FunctionProps = &#123;
+  <span class="hljs-comment">/** 任意的函数类型 ❌ 不推荐 不能规定参数以及返回值类型 */</span>
+  onSomething: <span class="hljs-built_in">Function</span>;
+  <span class="hljs-comment">/** 没有参数的函数 不需要返回值 😁 常用 */</span>
+  onClick: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-comment">/** 带函数的参数 😁 非常常用 */</span>
+  onChange: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-comment">/** 另一种函数语法 参数是 React 的按钮事件 😁 非常常用 */</span>
+  onClick(event: React.MouseEvent&lt;HTMLButtonElement&gt;): <span class="hljs-built_in">void</span>;
+  <span class="hljs-comment">/** 可选参数类型 😁 非常常用 */</span>
+  optional?: OptionalType;
+&#125;</code></pre>
+
+<h3 id="React-相关类型"><a href="#React-相关类型" class="headerlink" title="React 相关类型"></a>React 相关类型</h3><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">declare</span> <span class="hljs-keyword">interface</span> AppProps &#123;
+  children1: JSX.Element; <span class="hljs-comment">// ❌ 不推荐 没有考虑数组</span>
+  children2: JSX.Element | JSX.Element[]; <span class="hljs-comment">// ❌ 不推荐 没有考虑字符串 children</span>
+  children4: React.ReactChild[]; <span class="hljs-comment">// 稍微好点 但是没考虑 null</span>
+  children: React.ReactNode; <span class="hljs-comment">// ✅ 包含所有 children 情况</span>
+  functionChildren: <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span> React.ReactNode; <span class="hljs-comment">// ✅ 返回 React 节点的函数</span>
+  style?: React.CSSProperties; <span class="hljs-comment">// ✅ 推荐 在内联 style 时使用</span>
+  <span class="hljs-comment">// ✅ 推荐原生 button 标签自带的所有 props 类型</span>
+  <span class="hljs-comment">// 也可以在泛型的位置传入组件 提取组件的 Props 类型</span>
+  props: React.ComponentProps&lt;<span class="hljs-string">"button"</span>&gt;;
+  <span class="hljs-comment">// ✅ 推荐 利用上一步的做法 再进一步的提取出原生的 onClick 函数类型 </span>
+  <span class="hljs-comment">// 此时函数的第一个参数会自动推断为 React 的点击事件类型</span>
+  onClickButton：React.ComponentProps&lt;<span class="hljs-string">"button"</span>&gt;[<span class="hljs-string">"onClick"</span>]
+&#125;</code></pre>
+
+<h2 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h2><p>最简单的：</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">interface</span> AppProps = &#123; message: <span class="hljs-built_in">string</span> &#125;;
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">(<span class="hljs-params">&#123; message &#125;: AppProps</span>) =&gt;</span> &lt;div&gt;&#123;message&#125;&lt;<span class="hljs-regexp">/div&gt;;</span></code></pre>
+
+<p>包含 children 的：</p>
+<p>利用 <code>React.FC</code> 内置类型的话，不光会包含你定义的 <code>AppProps</code> 还会自动加上一个 children 类型，以及其他组件上会出现的类型：</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// 等同于</span>
+AppProps &amp; &#123; 
+  children: React.ReactNode 
+  propTypes?: WeakValidationMap&lt;P&gt;;
+  contextTypes?: ValidationMap&lt;<span class="hljs-built_in">any</span>&gt;;
+  defaultProps?: Partial&lt;P&gt;;
+  displayName?: <span class="hljs-built_in">string</span>;
+&#125;
+
+<span class="hljs-comment">// 使用</span>
+<span class="hljs-keyword">interface</span> AppProps = &#123; message: <span class="hljs-built_in">string</span> &#125;;
+
+<span class="hljs-keyword">const</span> App: React.FC&lt;AppProps&gt; = <span class="hljs-function">(<span class="hljs-params">&#123; message, children &#125;</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> (
+    &lt;&gt;
+     &#123;children&#125;
+     &lt;div&gt;&#123;message&#125;&lt;<span class="hljs-regexp">/div&gt;</span>
+<span class="hljs-regexp">    &lt;/</span>&gt;
+  )
+&#125;;</code></pre>
+
+<h2 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h2><p><code>@types/react</code> 包在 16.8 以上的版本开始对 Hooks 的支持。</p>
+<h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><p>如果你的默认值已经可以说明类型，那么不用手动声明类型，交给 TS 自动推断即可：</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// val: boolean</span>
+<span class="hljs-keyword">const</span> [val, toggle] = React.useState(<span class="hljs-literal">false</span>);
+
+toggle(<span class="hljs-literal">false</span>)
+toggle(<span class="hljs-literal">true</span>)</code></pre>
+
+<p>如果初始值是 null 或 undefined，那就要通过泛型手动传入你期望的类型。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> [user, setUser] = React.useState&lt;IUser | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);
+
+<span class="hljs-comment">// later...</span>
+setUser(newUser);</code></pre>
+
+<p>这样也可以保证在你直接访问 <code>user</code> 上的属性时，提示你它有可能是 null。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/89f3eb300d824bafb544494b8e92d9ac~tplv-k3u1fbpfcp-watermark.image" srcset="/img/loading.gif" alt="img"></p>
+<p>通过 <code>optional-chaining</code> 语法（TS 3.7 以上支持），可以避免这个错误。</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// ✅ ok</span>
+<span class="hljs-keyword">const</span> name = user?.name</code></pre>
+
+<h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p>需要用 <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions" target="_blank" rel="noopener">Discriminated Unions</a> 来标注 Action 的类型。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> initialState = &#123; count: <span class="hljs-number">0</span> &#125;;
+
+<span class="hljs-keyword">type</span> ACTIONTYPE =
+  | &#123; <span class="hljs-keyword">type</span>: <span class="hljs-string">"increment"</span>; payload: <span class="hljs-built_in">number</span> &#125;
+  | &#123; <span class="hljs-keyword">type</span>: <span class="hljs-string">"decrement"</span>; payload: <span class="hljs-built_in">string</span> &#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reducer</span>(<span class="hljs-params">state: <span class="hljs-keyword">typeof</span> initialState, action: ACTIONTYPE</span>) </span>&#123;
+  <span class="hljs-keyword">switch</span> (action.type) &#123;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"increment"</span>:
+      <span class="hljs-keyword">return</span> &#123; count: state.count + action.payload &#125;;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"decrement"</span>:
+      <span class="hljs-keyword">return</span> &#123; count: state.count - <span class="hljs-built_in">Number</span>(action.payload) &#125;;
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>();
+  &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> [state, dispatch] = React.useReducer(reducer, initialState);
+  <span class="hljs-keyword">return</span> (
+    &lt;&gt;
+      Count: &#123;state.count&#125;
+      &lt;button onClick=&#123;<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch(&#123; <span class="hljs-keyword">type</span>: <span class="hljs-string">"decrement"</span>, payload: <span class="hljs-string">"5"</span> &#125;)&#125;&gt;
+        -
+      &lt;<span class="hljs-regexp">/button&gt;</span>
+<span class="hljs-regexp">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: "increment", payload: 5 &#125;)&#125;&gt;</span>
+<span class="hljs-regexp">        +</span>
+<span class="hljs-regexp">      &lt;/</span>button&gt;
+    &lt;<span class="hljs-regexp">/&gt;</span>
+<span class="hljs-regexp">  );</span>
+<span class="hljs-regexp">&#125;</span></code></pre>
+
+<p>「Discriminated Unions」一般是一个联合类型，其中每一个类型都需要通过类似 <code>type</code> 这种特定的字段来区分，当你传入特定的 <code>type</code> 时，剩下的类型 <code>payload</code> 就会自动匹配推断。</p>
+<p>这样：</p>
+<ul>
+<li>当你写入的 <code>type</code> 匹配到 <code>decrement</code> 的时候，TS 会自动推断出相应的 <code>payload</code> 应该是 <code>string</code> 类型。</li>
+<li>当你写入的 <code>type</code> 匹配到 <code>increment</code> 的时候，则 <code>payload</code> 应该是 <code>number</code> 类型。</li>
+</ul>
+<p>这样在你 <code>dispatch</code> 的时候，输入对应的 <code>type</code>，就自动提示你剩余的参数类型啦。</p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>这里主要需要注意的是，useEffect 传入的函数，它的返回值要么是一个<strong>方法</strong>（清理函数），要么就是<strong>undefined</strong>，其他情况都会报错。</p>
+<p>比较常见的一个情况是，我们的 useEffect 需要执行一个 async 函数，比如：</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// ❌ </span>
+<span class="hljs-comment">// Type 'Promise&lt;void&gt;' provides no match </span>
+<span class="hljs-comment">// for the signature '(): void | undefined'</span>
+useEffect(<span class="hljs-keyword">async</span> () =&gt; &#123;
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> getUser()
+  setUser(user)
+&#125;, [])</code></pre>
+
+<p>虽然没有在 async 函数里显式的返回值，但是 async 函数默认会返回一个 Promise，这会导致 TS 的报错。</p>
+<p>推荐这样改写：</p>
+<pre><code class="hljs ts">useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">const</span> getUser = <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> getUser()
+    setUser(user)
+  &#125;
+  getUser()
+&#125;, [])</code></pre>
+
+<p>或者用自执行函数？不推荐，可读性不好。</p>
+<pre><code class="hljs ts">useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  (<span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> getUser()
+    setUser(user)
+  &#125;)()
+&#125;, [])</code></pre>
+
+<h3 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h3><p>这个 Hook 在很多时候是没有初始值的，这样可以声明返回对象中 <code>current</code> 属性的类型：</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> ref2 = useRef&lt;HTMLElement&gt;(<span class="hljs-literal">null</span>);</code></pre>
+
+<p>以一个按钮场景为例：</p>
+<pre><code class="hljs ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TextInputWithFocusButton</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> inputEl = React.useRef&lt;HTMLInputElement&gt;(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> onButtonClick = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (inputEl &amp;&amp; inputEl.current) &#123;
+      inputEl.current.focus();
+    &#125;
+  &#125;;
+  <span class="hljs-keyword">return</span> (
+    &lt;&gt;
+      &lt;input ref=&#123;inputEl&#125; <span class="hljs-keyword">type</span>=<span class="hljs-string">"text"</span> /&gt;
+      &lt;button onClick=&#123;onButtonClick&#125;&gt;Focus the input&lt;<span class="hljs-regexp">/button&gt;</span>
+<span class="hljs-regexp">    &lt;/</span>&gt;
+  );
+&#125;</code></pre>
+
+<p>当 <code>onButtonClick</code> 事件触发时，可以肯定 <code>inputEl</code> 也是有值的，因为组件是同级别渲染的，但是还是依然要做冗余的非空判断。</p>
+<p>有一种办法可以绕过去。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> ref1 = useRef&lt;HTMLElement&gt;(<span class="hljs-literal">null</span>!);</code></pre>
+
+<p><code>null!</code> 这种语法是非空断言，跟在一个值后面表示你断定它是有值的，所以在你使用 <code>inputEl.current.focus()</code> 的时候，TS 不会给出报错。</p>
+<p>但是这种语法比较危险，需要尽量减少使用。</p>
+<p>在绝大部分情况下，<code>inputEl.current?.focus()</code> 是个更安全的选择，除非这个值<strong>真的不可能</strong>为空。（比如在使用之前就赋值了）</p>
+<h3 id="useImperativeHandle"><a href="#useImperativeHandle" class="headerlink" title="useImperativeHandle"></a>useImperativeHandle</h3><p>推荐使用一个自定义的 <code>innerRef</code> 来代替原生的 <code>ref</code>，否则要用到 <code>forwardRef</code> 会搞的类型很复杂。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">type</span> ListProps = &#123;
+  innerRef?: React.Ref&lt;&#123; scrollToTop(): <span class="hljs-built_in">void</span> &#125;&gt;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params">props: ListProps</span>) </span>&#123;
+  useImperativeHandle(props.innerRef, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (&#123;
+    scrollToTop() &#123; &#125;
+  &#125;))
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+&#125;</code></pre>
+
+<p>结合刚刚 <code>useRef</code> 的知识，使用是这样的：</p>
+<pre><code class="hljs ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Use</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> listRef = useRef&lt;&#123; scrollToTop(): <span class="hljs-built_in">void</span> &#125;&gt;(<span class="hljs-literal">null</span>!)
+
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    listRef.current.scrollToTop()
+  &#125;, [])
+
+  <span class="hljs-keyword">return</span> (
+    &lt;List innerRef=&#123;listRef&#125; /&gt;
+  )
+&#125;</code></pre>
+
+<p>很完美，是不是？</p>
+<p>可以在线调试 <a href="https://www.typescriptlang.org/play?#code/JYWwDg9gTgLgBAKjgQwM5wEoFNkGN4BmUEIcA5FDvmQNwCwAUKJLHAN5wCuqWAyjMhhYANFx4BRAgSz5R3LNgJyeASXBYog4ADcsACWQA7ACYAbLHAC+cIiXKU8MWo0YwAnmAsAZYKhgAFYjB0AF52Rjg4YENDDUUAfgAuTCoYADpFAB4OVFxiU1MAFQhisAAKAEpk7QhgYysAPkZLFwYCTkN8YAhDOB8-MrAg1GT+gOGK8IZI+TVPTRgdfSMzLEHhtOjYqEVRSrgQhrgytgjIuFz8opKIcsmOFumrCoqzyhhOKF7DTgLm1vanUWPTgAFUePtTk9cD0-HBTL4YIoDmIFFgCNkLnkIAViqVKtVavVLA0yj8CgBCV4MM7ySTSfBlfaHKbneGIxRpXCfSiGdKXHHXfHUyKWUQAbQAutS3lgPl9jmdIpkxlEYnF0SE2Ai-IprAB6JpPamWIA" target="_blank" rel="noopener">useImperativeHandle 的例子</a>。</p>
+<p>也可以查看这个<a href="https://github.com/typescript-cheatsheets/react/issues/106" target="_blank" rel="noopener">useImperativeHandle 讨论 Issue</a>，里面有很多有意思的想法，也有使用 React.forwardRef 的复杂例子。</p>
+<h3 id="自定义-Hook"><a href="#自定义-Hook" class="headerlink" title="自定义 Hook"></a>自定义 Hook</h3><p>如果你想仿照 useState 的形式，返回一个数组给用户使用，一定要记得在适当的时候使用 <code>as const</code>，标记这个返回值是个常量，告诉 TS 数组里的值不会删除，改变顺序等等……</p>
+<p>否则，你的每一项都会被推断成是「所有类型可能性的联合类型」，这会影响用户使用。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useLoading</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> [isLoading, setState] = React.useState(<span class="hljs-literal">false</span>);
+  <span class="hljs-keyword">const</span> load = <span class="hljs-function">(<span class="hljs-params">aPromise: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;</span>) =&gt;</span> &#123;
+    setState(<span class="hljs-literal">true</span>);
+    <span class="hljs-keyword">return</span> aPromise.finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> setState(<span class="hljs-literal">false</span>));
+  &#125;;
+  <span class="hljs-comment">// ✅ 加了 as const 会推断出 [boolean, typeof load]</span>
+  <span class="hljs-comment">// ❌ 否则会是 (boolean | typeof load)[]</span>
+  <span class="hljs-keyword">return</span> [isLoading, load] <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>;[]
+&#125;</code></pre>
+
+<p>对了，如果你在用 React Hook 写一个库，别忘了把类型也导出给用户使用。</p>
+<h2 id="React-API"><a href="#React-API" class="headerlink" title="React API"></a>React API</h2><h3 id="forwardRef"><a href="#forwardRef" class="headerlink" title="forwardRef"></a>forwardRef</h3><p>函数式组件默认不可以加 ref，它不像类组件那样有自己的实例。这个 API 一般是函数式组件用来接收父组件传来的 ref。</p>
+<p>所以需要标注好实例类型，也就是父组件通过 ref 可以拿到什么样类型的值。</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">type</span> Props = &#123; &#125;;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Ref = HTMLButtonElement;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FancyButton = React.forwardRef&lt;Ref, Props&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">props, ref</span>) =&gt; (<span class="hljs-params"></span></span></span>
+<span class="hljs-function"><span class="hljs-params"><span class="hljs-params">  &lt;button ref=&#123;ref&#125; className="MyClassName"&gt;</span></span></span>
+<span class="hljs-function"><span class="hljs-params"><span class="hljs-params">    &#123;props.children&#125;</span></span></span>
+<span class="hljs-function"><span class="hljs-params"><span class="hljs-params">  &lt;/button&gt;</span></span></span>
+<span class="hljs-function"><span class="hljs-params"><span class="hljs-params"></span>)</span>);</span></code></pre>
+
+<p>由于这个例子里直接把 ref 转发给 button 了，所以直接把类型标注为 <code>HTMLButtonElement</code> 即可。</p>
+<p>父组件这样调用，就可以拿到正确类型：</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">const</span> ref = useRef&lt;HTMLButtonElement&gt;()
+  <span class="hljs-keyword">return</span> (
+    &lt;FancyButton ref=&#123;ref&#125; /&gt;
+  )
+&#125;</code></pre>
+
+
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/TypeScript/">TypeScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021-1-29-%E6%90%AC%E7%A0%96%E4%B8%AD%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">搬砖中所遇到的问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019-09-18-%E4%BB%8Ereact-hooks%E2%80%9C%E9%97%AD%E5%8C%85%E9%99%B7%E9%98%B1%E2%80%9D%E5%88%87%E5%85%A5%EF%BC%8C%E6%B5%85%E8%B0%88react-hooks/">
+                        <span class="hidden-mobile">从react hooks“闭包陷阱”切入，浅谈react hooks</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    
+ 
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">京ICP备18027511号-2</a>
+    
+  </div>
+
+ 
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "TypeScript如何在 React 中完美运用？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "§"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
